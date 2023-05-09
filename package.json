@@ -4,12 +4,9 @@
   "description": "Web3",
   "author": "",
   "license": "Paditech",
-  "engines": {
-    "node": "14.x"
-  },
   "scripts": {
-    "start1": "npm run build && cross-env NODE_ENV=production node dist/server.js",
-    "start": "cross-env NODE_ENV=development nodemon",
+    "start": "npm run build:tsc && cross-env NODE_ENV=production node dist/src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon",
     "staging": "cross-env NODE_ENV=staging nodemon",
     "build": "swc src -d dist --source-maps --copy-files",
     "build:tsc": "tsc && tsc-alias",

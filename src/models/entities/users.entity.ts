@@ -1,21 +1,53 @@
-import { Column, CreatedAt, Model, PrimaryKey, Table, UpdatedAt } from 'sequelize-typescript'
+import {
+  Column,
+  CreatedAt,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+  AutoIncrement,
+  HasOne,
+} from 'sequelize-typescript'
+import Card from './cards.entity'
 
 @Table({
   tableName: 'users',
 })
 export default class User extends Model<User> {
   @PrimaryKey
+  @AutoIncrement
   @Column
   id!: number
-
-  @Column
-  name!: string
 
   @Column
   email!: string
 
   @Column
+  user_name!: string
+
+  @Column
   password!: string
+
+  @Column
+  full_name!: string
+
+  @Column
+  role!: string
+
+  @Column
+  card_num!: number
+
+  @Column
+  card_type!: string
+
+  @Column
+  address!: string
+
+  @Column
+  tel!: string
+
+  @HasOne(() => Card)
+  card!: Card
 
   @CreatedAt
   @Column

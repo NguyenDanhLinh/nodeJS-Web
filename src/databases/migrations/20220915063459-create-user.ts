@@ -8,21 +8,58 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
 
-      name: {
-        type: Sequelize.STRING(255),
-        field: 'name',
-        allowNull: false,
-      },
-
       email: {
         type: Sequelize.STRING(255),
         field: 'email',
         allowNull: false,
       },
 
+      username: {
+        type: Sequelize.STRING(255),
+        field: 'user_name',
+        allowNull: false,
+      },
+
       password: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING(255),
         field: 'password',
+        allowNull: false,
+      },
+
+      fullName: {
+        type: Sequelize.STRING(255),
+        field: 'full_name',
+        allowNull: false,
+      },
+
+      role: {
+        type: Sequelize.STRING(255),
+        field: 'role',
+        allowNull: false,
+        defaultValue: 'user',
+      },
+
+      cardNum: {
+        type: Sequelize.INTEGER,
+        field: 'card_num',
+        allowNull: true,
+      },
+
+      cardType: {
+        type: Sequelize.STRING(255),
+        field: 'card_type',
+        allowNull: true,
+      },
+
+      address: {
+        type: Sequelize.STRING(255),
+        field: 'address',
+        allowNull: false,
+      },
+
+      tel: {
+        type: Sequelize.INTEGER,
+        field: 'tel',
         allowNull: false,
       },
 

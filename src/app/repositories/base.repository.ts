@@ -44,6 +44,17 @@ export abstract class BaseRepository<M extends Model> implements BaseRepositoryI
     return this.model.destroy({ where: { id: id } })
   }
 
+  async update(
+    object: Object,
+    condition: import('sequelize').UpdateOptions,
+  ): Promise<[affectedCount: number]> {
+    return this.model.update(object, condition)
+  }
+
+  async getAllWhere(object: Object): Promise<M[]> {
+    return this.model.findAll(object)
+  }
+
   /**
    * create equal predicate for where clause.
    * @private
