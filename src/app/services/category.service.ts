@@ -20,6 +20,14 @@ class CategoryServices {
   async deleteCategory(CategoryId: number) {
     return this.categoryRepository.deleteById(CategoryId)
   }
+
+  async getAllCategory() {
+    return this.categoryRepository.getAll()
+  }
+
+  async getProductByCategory(catrgoryId: number) {
+    return this.categoryRepository.getProductByCategory(catrgoryId)
+  }
 }
 
 export default CategoryServices

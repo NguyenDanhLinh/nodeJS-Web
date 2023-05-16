@@ -30,7 +30,7 @@ class BillServices {
     const dataCreateBill: any = await this.billRepository.create(createBillData)
     await this.productCardRepository.update(
       { status: false, bill_id: dataCreateBill.id },
-      { where: { card_id: dataCard.id } },
+      { where: { card_id: dataCard.id, bill_id: null } },
     )
     return this.billRepository.getBill(dataCreateBill.id)
   }
@@ -56,6 +56,11 @@ class BillServices {
       { status: dataUpdateStatusBill.status },
       { where: { id: dataUpdateStatusBill.id } },
     )
+  }
+
+  async getALLBillInfo(user_id: number) {
+    const dataCard = await this.cardRepository.findByCondition({ where: { user_id } })
+    return this.billRepository.getAllBill(dataCard.id)
   }
 }
 

@@ -30,7 +30,7 @@ class ProductsServices {
     const dataCard = await this.cardRepository.findByCondition({ where: { user_id } })
     dataAddToCard.card_id = dataCard.id
     const dataProductCard = await this.productCardRepository.findByCondition({
-      where: { card_id: dataAddToCard.card_id, product_id: dataAddToCard.product_id },
+      where: { card_id: dataAddToCard.card_id, product_id: dataAddToCard.product_id, status: true },
     })
     if (dataProductCard) {
       await this.productCardRepository.increment('amount', dataProductCard.id, dataAddToCard.amount)

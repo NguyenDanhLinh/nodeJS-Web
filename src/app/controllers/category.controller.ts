@@ -37,6 +37,22 @@ export class CategoryController extends BaseController {
 
     return this.setData(dataDeleteCategory).setMessage('Success').responseSuccess(res)
   }
+
+  @Get('/all')
+  async getAllCategory(@Res() res: any) {
+    const datagetAllCategory = await this.categoryervices.getAllCategory()
+
+    return this.setData(datagetAllCategory).setMessage('Success').responseSuccess(res)
+  }
+
+  @Get('/get-list-product')
+  async getProductByCategory(@Req() req: any, @Res() res: any) {
+    const dataGetProductByCategory = await this.categoryervices.getProductByCategory(
+      req.query.categoryId,
+    )
+
+    return this.setData(dataGetProductByCategory).setMessage('Success').responseSuccess(res)
+  }
 }
 
 export default CategoryController

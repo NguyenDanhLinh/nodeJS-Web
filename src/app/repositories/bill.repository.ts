@@ -48,6 +48,41 @@ class BillRepository extends BaseRepository<Bill> implements BilltRepositoryInte
       ],
     })
   }
+
+  async getAllBill(card_id: number): Promise<Array<Bill>> {
+    return this.getAllWhere({
+      where: {
+        card_id,
+      },
+      include: [
+        {
+          model: ProductCard,
+          where: {
+            status: false,
+          },
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+          include: [
+            {
+              model: Product,
+              attributes: {
+                exclude: ['createdAt', 'updatedAt'],
+              },
+              include: [
+                {
+                  model: Category,
+                  attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+  }
 }
 
 export default BillRepository
