@@ -1,4 +1,4 @@
-import { Get, JsonController, Req, Res, Post, UseBefore } from 'routing-controllers'
+import { Get, JsonController, Req, Res, Post, UseBefore, Delete } from 'routing-controllers'
 import { NextFunction } from 'express'
 import { BaseController } from './base.controller'
 import { Service } from 'typedi'
@@ -30,6 +30,20 @@ export class UsersController extends BaseController {
   async userLogin(@Req() req: any, @Res() res: any, next: NextFunction) {
     const token = await this.userServices.userLogin(req.body)
     return this.setData(token).setMessage('Success').responseSuccess(res)
+  }
+
+  @UseBefore(AdminMiddleware)
+  @Get('/getById')
+  async getByIdUser(@Req() req: any, @Res() res: any) {
+    const getByIdUserData = await this.userServices.getByIdUser(req.query.userId)
+    return this.setData(getByIdUserData).setMessage('Success').responseSuccess(res)
+  }
+
+  @UseBefore(AdminMiddleware)
+  @Delete('/delete')
+  async deleteByIdUser(@Req() req: any, @Res() res: any) {
+    const deleteByIdUserData = await this.userServices.deleteByIdUser(req.body.userId)
+    return this.setData(deleteByIdUserData).setMessage('Success').responseSuccess(res)
   }
 }
 

@@ -8,10 +8,15 @@ import BaseService from '@common/services/base.service'
 import jwt from 'jsonwebtoken'
 import { env } from '@env'
 import CardRepository from '@repositories/card.repository'
+import { MailService } from '@common/services/mail.service'
 
 @Service()
 class UserServices {
-  constructor(protected userRepository: UserRepository, protected cardRepository: CardRepository) {}
+  constructor(
+    protected userRepository: UserRepository,
+    protected cardRepository: CardRepository,
+    protected mailService: MailService,
+  ) {}
 
   async getUser() {
     return this.userRepository.getAll()
@@ -49,6 +54,19 @@ class UserServices {
 
     await this.cardRepository.create({ user_id: dataCreateUser.id })
 
+    const subject = `You have successfully registered your account. \n
+    email: ${dataCreateUser.email} \n
+    password: ${dataCreateUser.password}`
+
+    await this.mailService
+      .from(env.mail.email)
+      .to(dataCreateUser.email)
+      .html(subject)
+      .send()
+      .catch((err) => {
+        console.log(err)
+      })
+
     return dataCreateUser
   }
 
@@ -65,6 +83,14 @@ class UserServices {
     delete dataUser.password
 
     return jwt.sign(dataUser, env.auth.jwtSecret)
+  }
+
+  async getByIdUser(userId: number) {
+    return this.userRepository.findById(userId)
+  }
+
+  async deleteByIdUser(userId) {
+    return this.userRepository.deleteById(userId)
   }
 }
 

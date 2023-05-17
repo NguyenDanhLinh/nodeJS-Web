@@ -62,6 +62,10 @@ class BillServices {
     const dataCard = await this.cardRepository.findByCondition({ where: { user_id } })
     return this.billRepository.getAllBill(dataCard.id)
   }
+
+  async getALLBill() {
+    return this.billRepository.getAllBillByAdmin()
+  }
 }
 
 export default BillServices

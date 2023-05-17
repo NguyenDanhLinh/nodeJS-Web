@@ -47,6 +47,13 @@ export class BillController extends BaseController {
     const dataGetAllBillInfo = await this.billServices.getALLBillInfo(req.user.id)
     return this.setData(dataGetAllBillInfo).setMessage('Success').responseSuccess(res)
   }
+
+  @UseBefore(AdminMiddleware)
+  @Get('/all-by-admin')
+  async getALLBill(@Req() req: any, @Res() res: any) {
+    const dataGetALLBill = await this.billServices.getALLBill()
+    return this.setData(dataGetALLBill).setMessage('Success').responseSuccess(res)
+  }
 }
 
 export default BillController

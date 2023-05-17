@@ -7,6 +7,8 @@ import { BilltRepositoryInterface } from '@repositories/interfaces/bill.reposito
 import ProductCard from '@models/entities/product_card.entity'
 import Product from '@models/entities/product.entity'
 import Category from '@models/entities/category.entity'
+import Card from '@models/entities/cards.entity'
+import User from '@models/entities/users.entity'
 
 @Service({ global: true })
 class BillRepository extends BaseRepository<Bill> implements BilltRepositoryInterface<Bill> {
@@ -72,6 +74,50 @@ class BillRepository extends BaseRepository<Bill> implements BilltRepositoryInte
               include: [
                 {
                   model: Category,
+                  attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+  }
+
+  async getAllBillByAdmin(): Promise<Array<Bill>> {
+    return this.getAllWhere({
+      include: [
+        {
+          model: ProductCard,
+          where: {
+            status: false,
+          },
+          attributes: {
+            exclude: ['createdAt', 'updatedAt'],
+          },
+          include: [
+            {
+              model: Product,
+              attributes: {
+                exclude: ['createdAt', 'updatedAt'],
+              },
+              include: [
+                {
+                  model: Category,
+                  attributes: {
+                    exclude: ['createdAt', 'updatedAt'],
+                  },
+                },
+              ],
+            },
+            {
+              model: Card,
+              attributes: ['id'],
+              include: [
+                {
+                  model: User,
                   attributes: {
                     exclude: ['createdAt', 'updatedAt'],
                   },

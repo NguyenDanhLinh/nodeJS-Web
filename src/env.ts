@@ -103,4 +103,8 @@ export const env = {
     secretAccessKey: getOsEnv('FILEBASE_S3_SECRET_ACCESS_KEY'),
     s3Endpoint: getOsEnv('FILEBASE_S3_URL_ENDPOINT'),
   },
+  mail: {
+    email: getOsEnvOptional('MAIL_EMAIL'),
+    password: getOsEnvOptional('MAIL_PASSWORD'),
+  },
 }
