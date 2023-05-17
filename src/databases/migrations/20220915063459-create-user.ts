@@ -63,6 +63,12 @@ module.exports = {
         allowNull: false,
       },
 
+      facebookId: {
+        type: Sequelize.STRING(255),
+        field: 'facebook_id',
+        allowNull: true,
+      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

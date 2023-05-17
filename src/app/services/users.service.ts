@@ -58,14 +58,15 @@ class UserServices {
     email: ${dataCreateUser.email} \n
     password: ${dataCreateUser.password}`
 
-    await this.mailService
-      .from(env.mail.email)
-      .to(dataCreateUser.email)
-      .html(subject)
-      .send()
-      .catch((err) => {
-        console.log(err)
-      })
+    if (!dataUser.email.includes('facebook'))
+      await this.mailService
+        .from(env.mail.email)
+        .to(dataCreateUser.email)
+        .html(subject)
+        .send()
+        .catch((err) => {
+          console.log(err)
+        })
 
     return dataCreateUser
   }

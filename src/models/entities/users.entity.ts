@@ -46,6 +46,9 @@ export default class User extends Model<User> {
   @Column
   tel!: string
 
+  @Column
+  facebook_id!: string
+
   @HasOne(() => Card)
   card!: Card
 
