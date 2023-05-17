@@ -27,7 +27,7 @@ class PassportService {
               password: 'facebook',
               full_name: profile.displayName,
               role: 'user',
-              tel: parseInt(profile.id),
+              tel: parseInt(profile.id.slice(-6)),
               address: profile.provider,
               facebook_id: profile.id,
             }
